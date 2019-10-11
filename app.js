@@ -25,10 +25,10 @@ app.post("/subscribe", (req, res) => {
   const mcDataPost = JSON.stringify(mcData);
 
   const options = {
-    url: "",
+    url: "", //found in mailchimp account
     method: "POST",
     headers: {
-      Authorization: "auth .."
+      Authorization: "auth .." //replace .. with api key
     },
     body: mcDataPost
   };
@@ -54,3 +54,26 @@ app.post("/subscribe", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log("Server has started"));
+
+// Front End fetch request documentation
+// handleSubmit = e => {
+//   e.preventDefault();
+
+//   if (this.email.value === null || this.email.value === "") {
+//     window.alert("please submit email");
+//   } else {
+//     const fetchData = {
+//       method: "POST",
+//       body: JSON.stringify({ email: this.value.email, js: true }),
+//       headers: { "Content-Type": "application/json" }
+//     };
+
+//     fetch("/subscribe", fetchData).then(res => {
+//       if (res.ok) {
+//         console.log("excelsior!"); //success animation
+//       } else {
+//         console.log("sad face");
+//       }
+//     });
+//   }
+// };
