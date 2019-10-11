@@ -12,6 +12,43 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/subscribe", (req, res) => {
   console.log("hello world");
+  const { email, js } = req.body;
+  const mcData = {
+    members: [
+      {
+        email,
+        status: "pending" //subscribe if you want to skip verification email
+      }
+    ]
+  };
+
+  const mcDataPost = JSON.stringify(mcData);
+
+  const options = {
+    url: "",
+    method: "POST",
+    headers: {
+      Authorization: "auth .."
+    },
+    body: mcDataPost
+  };
+
+  if (email) {
+    request(options, (err, response, body) => {
+      //successful so far
+      if (err) {
+        res.json({ error: err });
+      } else {
+        if (js) {
+          res.sendStatus(200);
+        } else {
+          res.redirect("/success.html");
+        }
+      }
+    });
+  } else {
+    res.status(404).send({ message: "failed" });
+  }
 });
 
 const PORT = process.env.PORT || 5000;
